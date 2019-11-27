@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  * Created by bingsenh on 2019/10/24.
  */
 @Slf4j
-public class RpcClient extends SimpleChannelInboundHandler {
+public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
     private static final Logger LOGGER = LoggerFactory.getLogger(RpcClient.class);
     private final String host;
     private final int port;
@@ -35,7 +35,7 @@ public class RpcClient extends SimpleChannelInboundHandler {
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, Object object) throws Exception {
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, RpcResponse rpcResponse) throws Exception {
         this.rpcResponse = rpcResponse;
     }
 

@@ -45,6 +45,7 @@ public class ZooKeeperServiceDiscovery implements ServiceDiscovery {
             String addressPath = servicePath + "/" + address;
             return zkClient.readData(addressPath);
         }finally {
+            //System.out.println("close");
             zkClient.close();
         }
     }

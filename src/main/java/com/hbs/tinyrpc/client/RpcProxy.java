@@ -46,6 +46,7 @@ public class RpcProxy {
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                         RpcRequest rpcRequest = new RpcRequest();
                         rpcRequest.setRequestId(UUID.randomUUID().toString());
+                        rpcRequest.setInterfaceName(method.getDeclaringClass().getName());
                         rpcRequest.setServiceVersion(serviceVersion);
                         rpcRequest.setMethodName(method.getName());
                         rpcRequest.setParameterTypes(method.getParameterTypes());

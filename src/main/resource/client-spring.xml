@@ -7,21 +7,10 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="com.hbs.tinyrpc.server"/>
-
     <context:property-placeholder location="classpath:rpc.properties"/>
 
-    <bean id="serviceRegistry" class="com.hbs.tinyrpc.zookeeper.ZooKeeperServiceRegistery">
-        <constructor-arg name="zkAddress" value="${rpc.registry_address}"/>
-    </bean>
-
-    <bean id="rpcServer" class="com.hbs.tinyrpc.server.RpcServer">
-        <constructor-arg name="serviceAddress" value="${rpc.service_address}"/>
-        <constructor-arg name="serviceRegistry" ref="serviceRegistry"/>
-    </bean>
-
     <bean id="serviceDiscovery" class="com.hbs.tinyrpc.zookeeper.ZooKeeperServiceDiscovery">
-        <constructor-arg name="zkAddress" value="${rpc.registry_address}"/>
+    <constructor-arg name="zkAddress" value="${rpc.registry_address}"/>
     </bean>
 
     <bean id="rpcProxy" class="com.hbs.tinyrpc.client.RpcProxy">

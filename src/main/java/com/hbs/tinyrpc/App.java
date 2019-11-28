@@ -1,13 +1,16 @@
 package com.hbs.tinyrpc;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
- * Hello world!
- *
+ * @Author hbs
+ * @Date 2019/11/28
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+public class App {
+    private final static Logger LOGGER = LoggerFactory.getLogger(App.class);
+
+    public static void main(String[] args) {
+        LOGGER.debug("heoo");
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class HelloClient1 {
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("client-spring.xml");
         RpcProxy rpcProxy = context.getBean(RpcProxy.class);
         HelloService helloService1 =  rpcProxy.create(HelloService.class);
         String result1 = helloService1.hello("World");

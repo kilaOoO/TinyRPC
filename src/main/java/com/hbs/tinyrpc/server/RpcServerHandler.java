@@ -3,6 +3,7 @@ package com.hbs.tinyrpc.server;
 import com.hbs.tinyrpc.protocol.RpcRequest;
 import com.hbs.tinyrpc.protocol.RpcResponse;
 import com.hbs.tinyrpc.utils.StringUtil;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import net.sf.cglib.reflect.FastClass;
@@ -34,6 +35,9 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
             LOGGER.error("handle result failure",e);
             rpcResponse.setException(e);
         }
+
+        // 写入 RPC 响应对象并自动关闭连接
+        channelHandlerContext.writeAndFlush(rpcResponse).addListener(ChannelFutureListener.CLOSE);
     }
 
     private Object handle(RpcRequest rpcRequest) throws InvocationTargetException {
@@ -43,6 +47,7 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
         if(StringUtil.isNotEmpty(serviceVersion)){
             serviceName += "-"+serviceVersion;
         }
+        System.out.println(serviceName);
         Object serviceBean = handlerMap.get(serviceName);
         if(serviceBean == null){
             throw new RuntimeException(String.format("can not find service bean by key: %s",serviceName));

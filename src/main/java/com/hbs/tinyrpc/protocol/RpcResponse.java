@@ -9,13 +9,10 @@ import lombok.Data;
 @Data
 public class RpcResponse {
     private String requestId;
-    //private String error;
     private Object result;
     private Exception exception;
     public boolean hasExpection(){
         return exception!=null;
     }
-//    public boolean isError(){
-//        return error != null;
-//    }
+
 }

@@ -51,6 +51,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         Map<String,Object> serviceBeanMap = applicationContext.getBeansWithAnnotation(RpcService.class);
         if(MapUtils.isNotEmpty(serviceBeanMap)){
+            System.out.println("not null");
             for(Object serviceBean : serviceBeanMap.values()){
                 RpcService rpcService = serviceBean.getClass().getAnnotation(RpcService.class);
                 String serviceName = rpcService.value().getName();
@@ -78,6 +79,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
                     ChannelPipeline pipeline = socketChannel.pipeline();
                     pipeline.addLast(new RpcDecoder(RpcRequest.class));
                     pipeline.addLast(new RpcEncoder(RpcResponse.class));
+                    pipeline.addLast(new RpcServerHandler(handlerMap));
                 }
             });
 
@@ -98,6 +100,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
             }
             // 关闭 RPC 服务器
             LOGGER.debug("server start on port {}", port);
+            future.channel().closeFuture().sync();
         }finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();

@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * Created by bingsenh on 2019/11/21.
  */
 @Target({ElementType.TYPE})
-@Retention(RetentionPolicy.CLASS.RUNTIME)
+@Retention(RetentionPolicy.RUNTIME)
 @Component
 public @interface RpcService {
     /**
